@@ -1,0 +1,23 @@
+<!doctype html>
+<head>
+    <title>Welcome to Sauerkraut!</title>
+</head>
+
+<body>
+    <h1>There's a flag here somewhere...</h1>
+    <form id="input" method="post" action="/">
+        <textarea rows="5" cols="60" name="text">Enter text here...</textarea><br>
+        <input type="submit" value="submit" id="submit" /><br>
+    </form>
+    <textarea rows="10" cols="60" name="output" readonly>
+    {% block content %}
+        {% if code %}
+            {{ code }}
+        {% endif %}
+    {% endblock %}
+    </textarea><br>
+</body>
+
+
+
+
